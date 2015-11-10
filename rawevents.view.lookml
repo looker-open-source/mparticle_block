@@ -202,3 +202,42 @@
   - measure: revenue
     type: sum
     sql: ${event_ltv_value}
+    
+  - measure: install_count
+    type: sum
+    sql: case when ${message_type_id} = 7 then 1 else 0 end
+    
+  # Funnel Fields #
+  
+  - filter: event_1
+    suggest_explore: rawevents
+    suggest_dimension: event_name
+  
+  - filter: event_2
+    suggest_explore: rawevents
+    suggest_dimension: event_name
+  
+  - filter: event_3
+    suggest_explore: rawevents
+    suggest_dimension: event_name
+  
+  - filter: event_4
+    suggest_explore: rawevents
+    suggest_dimension: event_name
+
+  - measure: funnel.event_1_uu_count
+    type: number
+    sql: count(distinct case when {% condition event_1 %} ${event_name} {% endcondition %} THEN ${mparticle_user_id} END)
+
+  - measure: funnel.event_2_uu_count
+    type: number
+    sql: count(distinct case when {% condition event_2 %} ${event_name} {% endcondition %} THEN ${mparticle_user_id} END)
+    
+  - measure: funnel.event_3_uu_count
+    type: number
+    sql: count(distinct case when {% condition event_3 %} ${event_name} {% endcondition %} THEN ${mparticle_user_id} END)
+    
+  - measure: funnel.event_4_uu_count
+    type: number
+    sql: count(distinct case when {% condition event_4 %} ${event_name} {% endcondition %} THEN ${mparticle_user_id} END)
+    
