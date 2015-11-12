@@ -189,6 +189,14 @@
   - dimension: user_attributes
     sql: ${TABLE}.userattributes
 
+  - dimension: days_since_install
+    type: int
+    sql: ${eventdate_date} - ${users.install_timestamp_date}
+    
+  - dimension: weeks_since_intall
+    type: int
+    sql: datediff(week, ${users.install_timestamp_date}, ${eventdate_date})
+    
   - measure: count
     type: count
 
