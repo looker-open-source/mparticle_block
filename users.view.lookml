@@ -7,17 +7,23 @@
       select *
       from (
         select mparticleuserid as mparticle_user_id,
-          min(case when messagetypeid = 7 then eventtimestamp end) as install_timestamp,
-          min(attributionpublisher) as attribution_source  
+          case when min(firstseentimestamp) is not null then min(firstseentimestamp) else
+            min(case when messagetypeid = 7 then eventtimestamp end) end as install_timestamp,
+          min(attributionpublisher) as attribution_source,
+          count(*) as event_count,
+          sum(case when messagetypeid = 1 then 1 end) as session_count,
+          count(distinct eventdate) as active_day_count,
+          sum(eventltvvalue) as ltv,
+          sum(case when messagetypeid = 2 then eventlength / 1000 end) as time_spent_in_app
         from app_191.eventsview
         group by 1)
       where install_timestamp is not null
       
   fields:
   
-  - dimension: 
+  - dimension: mparticle_user_id
+    type: number
     sql: ${TABLE}.mparticle_user_id
-    primary_key: true
   
   - dimension: install_timestamp
     type: time
@@ -28,6 +34,27 @@
   - dimension: attribution_source
     type: string
     sql: ${TABLE}.attribution_source
+  
+  - dimension: event_count
+    type: int
+    sql: ${TABLE}.event_count
+    
+  - dimension: session_count
+    type: int
+    sql: ${TABLE}.session_count
+    
+  - dimension: active_day_count
+    type: int
+    sql: ${TABLE}.active_day_count
+    
+  - dimension: ltv
+    type: number
+    sql: ${TABLE}.ltv
+    value_format: '$#,##0.00'
+  
+  - dimension: time_spent_in_app
+    type: int
+    sql: ${TABLE}.time_spent_in_app
     
   - measure: count
     type: count

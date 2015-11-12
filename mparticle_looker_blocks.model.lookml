@@ -4,11 +4,8 @@
 - include: "*.dashboard.lookml"  # include all the dashboards
 
 - explore: rawevents
+  joins: 
+  - join: users
+    sql_on: ${rawevents.mparticle_user_id} = ${users.mparticle_user_id}
+    relationship: many_to_one
 
-#- explore: users
-#  joins:
-#    - join: rawevents
-#      type: inner
-#      relationship: one_to_many
-#      sql_on: ${users.mparticle_user_id} = ${rawevents.mparticle_user_id}
-      

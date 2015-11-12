@@ -150,7 +150,7 @@
     sql: ${TABLE}.messagetypeid
 
   - dimension: mparticle_user_id
-    type: int
+    type: number
     sql: ${TABLE}.mparticleuserid
 
   - dimension: platform
