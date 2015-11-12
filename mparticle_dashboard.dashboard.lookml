@@ -2,7 +2,8 @@
   title: Mparticle Dashboard
   layout: tile
   tile_size: 100
-
+  refresh: 1 hour
+  
   filters:
     - name: date
       title: Date

@@ -15,6 +15,12 @@
     type: int
     sql: ${TABLE}.applicationtransitiontypeid
 
+  - dimension: install_timestamp
+    type: time
+    datatype: epoch
+    timeframes: [time, date, week, month, year]
+    sql: (${TABLE}.firstseentimestamp::bigint) / 1000
+    
   - dimension: app_name
     sql: ${TABLE}.appname
 
