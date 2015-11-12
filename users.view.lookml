@@ -9,12 +9,12 @@
         select mparticleuserid as mparticle_user_id,
           case when min(firstseentimestamp) is not null and min(firstseentimestamp) > 0 then min(firstseentimestamp) else
             min(case when messagetypeid = 7 then eventtimestamp end) end as install_timestamp,
-          min(attributionpublisher) as attribution_source,
+          isnull(min(attributionpublisher), 'Unattributted') as attribution_source,
           count(*) as event_count,
-          sum(case when messagetypeid = 1 then 1 end) as session_count,
+          isnull(sum(case when messagetypeid = 1 then 1 end), 0) as session_count,
           count(distinct eventdate) as active_day_count,
-          sum(eventltvvalue) as ltv,
-          sum(case when messagetypeid = 2 then eventlength / 1000 end) as time_spent_in_app
+          isnull(sum(eventltvvalue), 0) as ltv,
+          isnull(sum(case when messagetypeid = 2 then eventlength / 1000 end), 0) as time_spent_in_app
         from app_191.eventsview
         group by 1)
       where install_timestamp is not null
