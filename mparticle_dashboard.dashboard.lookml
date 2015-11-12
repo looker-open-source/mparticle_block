@@ -1,5 +1,5 @@
 - dashboard: mparticle_dashboard
-  title: Mparticle Dashboard
+  title: mParticle Dashboard
   layout: tile
   tile_size: 100
   refresh: 1 hour
