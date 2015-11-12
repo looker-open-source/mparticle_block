@@ -382,3 +382,48 @@
         funnel.event_2_uu_count: Event 2
         funnel.event_3_uu_count: Event 3
         funnel.event_4_uu_count: Event 4
+        
+    - name: add_a_unique_name_1447350016831
+      title: User Retention
+      type: looker_column
+      model: mparticle_looker_blocks
+      explore: rawevents
+      dimensions: [rawevents.weeks_since_intall, users.attribution_source]
+      pivots: [rawevents.weeks_since_intall]
+      measures: [rawevents.unique_user_count]
+      dynamic_fields:
+      - table_calculation: user_retention_pct
+        label: user retention pct
+        expression: ${rawevents.unique_user_count} / pivot_index(${rawevents.unique_user_count}, 1)
+        value_format: '#,##0.00%'
+      sorts: [rawevents.weeks_since_intall, rawevents.unique_user_count desc 0]
+      limit: 500
+      column_limit: 50
+      hidden_fields: [rawevents.unique_user_count]
+      show_row_numbers: true
+      ordering: none
+      show_null_labels: false
+      stacking: ''
+      show_value_labels: false
+      label_density: 25
+      legend_position: center
+      x_axis_gridlines: false
+      y_axis_gridlines: true
+      y_axis_combined: true
+      show_y_axis_labels: true
+      show_y_axis_ticks: true
+      y_axis_tick_density: default
+      y_axis_tick_density_custom: 5
+      show_x_axis_label: true
+      show_x_axis_ticks: true
+      x_axis_scale: auto
+      show_null_points: true
+      point_style: none
+      interpolation: linear
+      font_size: medium
+      show_view_names: true
+      value_labels: legend
+      label_type: labPer
+      show_dropoff: false
+      swap_axes: false
+        

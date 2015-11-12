@@ -7,7 +7,7 @@
       select *
       from (
         select mparticleuserid as mparticle_user_id,
-          case when min(firstseentimestamp) is not null then min(firstseentimestamp) else
+          case when min(firstseentimestamp) is not null and min(firstseentimestamp) > 0 then min(firstseentimestamp) else
             min(case when messagetypeid = 7 then eventtimestamp end) end as install_timestamp,
           min(attributionpublisher) as attribution_source,
           count(*) as event_count,
