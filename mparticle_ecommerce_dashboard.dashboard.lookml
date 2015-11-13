@@ -1,5 +1,5 @@
 - dashboard: mparticle_ecommerce_dashboard
-  title: mParticle Ecommerce Dashboard
+  title: mParticle eCommerce Dashboard
   layout: tile
   tile_size: 100
   refresh: 1 hour
@@ -9,13 +9,49 @@
       title: Date
       type: date_filter
       default_value: 30 Days
-
+    
+    - name: platform
+      type: field_filter
+      explore: rawevents
+      field: rawevents.platform
+      
+    - name: event_1
+      type: field_filter
+      explore: rawevents
+      field: rawevents.event_name
+      default_value: "eCommerce - ViewDetail"
+      
+    - name: event_2
+      type: field_filter
+      explore: rawevents
+      field: rawevents.event_name
+      default_value: "eCommerce - AddToWishlist"
+      
+    - name: event_3
+      type: field_filter
+      explore: rawevents
+      field: rawevents.event_name
+      default_value: "eCommerce - AddToCart"
+      
+    - name: event_4
+      type: field_filter
+      explore: rawevents
+      field: rawevents.event_name
+      default_value: "eCommerce - Checkout"
+      
+    - name: event_5
+      type: field_filter
+      explore: rawevents
+      field: rawevents.event_name
+      default_value: "eCommerce - Purchase"
+      
   elements:
 
   - name: Revenue by Attribution Source
     title: Revenue by Attribution Source
     listen:
       date: rawevents.eventdate_date
+      platform: rawevents.platform
     type: looker_column
     model: mparticle_looker_blocks
     explore: rawevents
@@ -46,7 +82,7 @@
     hidden_fields: [rawevents.unique_user_count]
     ordering: none
     show_null_labels: false
-    point_style: none
+    point_style: circle
     interpolation: linear
     show_null_points: true
     x_axis_label: Attribution Source
@@ -58,3 +94,147 @@
       arpu: ARPU
       rawevents.revenue: Total Revenue
     y_axis_orientation: [left, right]
+  
+  - name: Revenue by Hour of Day
+    title: Revenue by Hour of Day
+    listen:
+      date: rawevents.eventdate_date
+      platform: rawevents.platform
+    type: looker_column
+    model: mparticle_looker_blocks
+    explore: rawevents
+    dimensions: [rawevents.hour]
+    measures: [rawevents.revenue, rawevents.unique_user_count]
+    dynamic_fields:
+    - table_calculation: arpu
+      label: ARPU
+      expression: ${rawevents.revenue} / ${rawevents.unique_user_count}
+      value_format: $#,##0.00
+    sorts: [rawevents.hour]
+    limit: 500
+    stacking: ''
+    show_value_labels: false
+    label_density: 25
+    legend_position: center
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: true
+    y_axis_combined: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    x_axis_scale: auto
+    hidden_fields: [rawevents.unique_user_count]
+    ordering: none
+    show_null_labels: false
+    point_style: circle
+    interpolation: linear
+    show_null_points: true
+    x_axis_label: Hour of Day
+    y_axis_labels: [Revenue]
+    y_axis_value_format: $#,##0.00
+    series_types:
+      arpu: line
+    series_labels:
+      arpu: ARPU
+      rawevents.revenue: Total Revenue
+    y_axis_orientation: [left, right]
+  
+  - name: Revenue & ARPU by Day
+    title: Revenue & ARPU by Day
+    listen:
+      date: rawevents.eventdate_date
+      platform: rawevents.platform
+    type: looker_column
+    model: mparticle_looker_blocks
+    explore: rawevents
+    dimensions: [rawevents.eventdate_date]
+    measures: [rawevents.revenue, rawevents.unique_user_count]
+    dynamic_fields:
+    - table_calculation: arpu
+      label: ARPU
+      expression: ${rawevents.revenue} / ${rawevents.unique_user_count}
+      value_format: $#,##0.00
+    sorts: [rawevents.eventdate_date]
+    limit: 500
+    stacking: ''
+    show_value_labels: false
+    label_density: 25
+    legend_position: center
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: true
+    y_axis_combined: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    x_axis_scale: auto
+    hidden_fields: [rawevents.unique_user_count]
+    ordering: none
+    show_null_labels: false
+    point_style: circle
+    interpolation: linear
+    show_null_points: true
+    x_axis_label: Date
+    y_axis_labels: [Total Revenue]
+    y_axis_value_format: $#,##0.00
+    series_types:
+      arpu: line
+    series_labels:
+      arpu: ARPU
+      rawevents.revenue: Total Revenue
+    y_axis_orientation: [left, right]
+    
+  - name: Purchase Funnel Analytics by App Platform
+    title: Purchase Funnel Analytics by App Platform
+    type: looker_column
+    model: mparticle_looker_blocks
+    explore: rawevents
+    measures: [funnel.event_1_uu_count, funnel.event_2_uu_count, funnel.event_3_uu_count,
+      funnel.event_4_uu_count, funnel.event_5_uu_count]
+    #dimensions: [rawevents.app_name_platform]
+    listen:
+      date: rawevents.eventdate_date
+      event_1: rawevents.event_1
+      event_2: rawevents.event_2
+      event_3: rawevents.event_3
+      event_4: rawevents.event_4
+      event_5: rawevents.event_5
+      platform: rawevents.platform
+    limit: 500
+    column_limit: 50
+    show_view_names: true
+    stacking: ''
+    show_value_labels: false
+    label_density: 25
+    legend_position: center
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    y_axis_combined: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    x_axis_scale: auto
+    #x_axis_label: App Platform
+    ordering: none
+    show_null_labels: false
+    show_row_numbers: true
+    show_dropoff: true
+    y_axis_labels: [Unique User Count]
+    y_axis_value_format: '#,##0'
+    series_labels:
+      funnel.event_1_uu_count: Event 1
+      funnel.event_2_uu_count: Event 2
+      funnel.event_3_uu_count: Event 3
+      funnel.event_4_uu_count: Event 4
+      funnel.event_5_uu_count: Event 5
+      

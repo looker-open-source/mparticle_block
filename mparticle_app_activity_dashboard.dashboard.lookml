@@ -1,5 +1,5 @@
 - dashboard: mparticle_dashboard
-  title: mParticle Dashboard
+  title: mParticle App Activity Dashboard
   layout: tile
   tile_size: 100
   refresh: 1 hour
@@ -437,6 +437,7 @@
         funnel.event_4_uu_count]
       dimensions: [rawevents.app_name_platform]
       listen:
+        date: rawevents.eventdate_date
         event_1: rawevents.event_1
         event_2: rawevents.event_2
         event_3: rawevents.event_3
@@ -477,6 +478,9 @@
       type: looker_column
       model: mparticle_looker_blocks
       explore: rawevents
+      listen:
+        date: rawevents.eventdate_date
+        platform: rawevents.platform
       dimensions: [rawevents.weeks_since_intall, users.attribution_source]
       pivots: [rawevents.weeks_since_intall]
       measures: [rawevents.unique_user_count]

@@ -258,6 +258,10 @@
     suggest_explore: rawevents
     suggest_dimension: event_name
 
+  - filter: event_5
+    suggest_explore: rawevents
+    suggest_dimension: event_name
+    
   - measure: funnel.event_1_uu_count
     type: number
     sql: count(distinct case when {% condition event_1 %} ${event_name} {% endcondition %} THEN ${mparticle_user_id} END)
@@ -273,4 +277,7 @@
   - measure: funnel.event_4_uu_count
     type: number
     sql: count(distinct case when {% condition event_4 %} ${event_name} {% endcondition %} THEN ${mparticle_user_id} END)
-    
+  
+  - measure: funnel.event_5_uu_count
+    type: number
+    sql: count(distinct case when {% condition event_5 %} ${event_name} {% endcondition %} THEN ${mparticle_user_id} END)

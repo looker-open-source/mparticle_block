@@ -9,6 +9,11 @@
       title: Date
       type: date_filter
       default_value: 30 Days
+    
+    - name: platform
+      type: field_filter
+      explore: rawevents
+      field: rawevents.platform
       
     - name: audience_membership_filter
       type: string_filter
