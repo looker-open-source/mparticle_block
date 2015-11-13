@@ -31,6 +31,7 @@
       listen:
         date: rawevents.eventdate_date
         audience_membership_filter: rawevents.audience_membership_filter
+        platform: rawevents.platform
       filters:
         rawevents.is_in_audience: 'Yes'
       sorts: [rawevents.unique_user_count desc]
@@ -61,6 +62,154 @@
       show_null_labels: false
       show_row_numbers: true
 
+    - name: add_a_unique_name_1447456463158
+      title: Audience Lift % (comparing users in the audience vs not in the audience)
+      type: looker_column
+      model: mparticle_looker_blocks
+      explore: rawevents
+      listen:
+        date: rawevents.eventdate_date
+        audience_membership_filter: rawevents.audience_membership_filter
+        platform: rawevents.platform
+      dimensions: [rawevents.is_in_audience]
+      measures: [rawevents.avg_session_length, rawevents.time_spent_in_app, rawevents.unique_user_count,
+        rawevents.revenue, rawevents.session_count]
+      dynamic_fields:
+      - table_calculation: arpu
+        label: ARPU
+        expression: ${rawevents.revenue} / ${rawevents.unique_user_count}
+        value_format: $#,##0.00
+      - table_calculation: sessions_per_user
+        label: Sessions Per User
+        expression: ${rawevents.session_count} / ${rawevents.unique_user_count}
+        value_format: '#,##0.0'
+      - table_calculation: time_spent_in_app_per_user
+        label: Time Spent In App Per User
+        expression: ${rawevents.time_spent_in_app}/${rawevents.unique_user_count}
+        value_format: '#,##0.0'
+      - table_calculation: arpu_lift
+        label: ARPU Lift %
+        expression: if(${arpu} > 0, if(offset(${arpu}, -1) > 0, ${arpu} / offset(${arpu}, -1) - 1, null), null)
+        value_format: '#,##0.0%'
+      - table_calculation: sessions_per_user_lift
+        label: Sessions Per User Lift %
+        expression: ${sessions_per_user} / offset(${sessions_per_user}, -1) - 1
+        value_format: '#,##0.0%'
+      - table_calculation: avg_session_length_lift
+        label: Avg Session Length Lift %
+        expression: ${rawevents.avg_session_length} / offset(${rawevents.avg_session_length}, -1) - 1
+        value_format: '#,##0.0%'
+      - table_calculation: time_spent_in_app_per_user_lift
+        label: Time Spent In App Per User Lift %
+        expression: ${time_spent_in_app_per_user} / offset(${time_spent_in_app_per_user}, -1) - 1
+        value_format: '#,##0.0%'
+      sorts: [rawevents.is_in_audience]
+      limit: 500
+      column_limit: 50
+      stacking: ''
+      show_value_labels: false
+      label_density: 25
+      legend_position: center
+      x_axis_gridlines: false
+      y_axis_gridlines: true
+      show_view_names: true
+      y_axis_combined: true
+      show_y_axis_labels: true
+      show_y_axis_ticks: true
+      y_axis_tick_density: default
+      y_axis_tick_density_custom: 5
+      show_x_axis_label: false
+      show_x_axis_ticks: true
+      x_axis_scale: auto
+      ordering: none
+      show_null_labels: false
+      hidden_fields: [rawevents.time_spent_in_app, rawevents.unique_user_count, rawevents.revenue,
+        rawevents.session_count, time_spent_in_app_per_user, sessions_per_user, arpu, rawevents.avg_session_length]
+      y_axis_value_format: '#,##0.0%'
+      y_axis_labels: [Lift %]
+      hidden_points_if_no: [rawevents.is_in_audience]
+    
+    - name: add_a_unique_name_1447437478710
+      title: Daily ARPU by Audience Membership
+      type: looker_area
+      model: mparticle_looker_blocks
+      explore: rawevents
+      listen:
+        date: rawevents.eventdate_date
+        audience_membership_filter: rawevents.audience_membership_filter
+        platform: rawevents.platform
+      dimensions: [rawevents.is_in_audience, rawevents.eventdate_date]
+      pivots: [rawevents.is_in_audience]
+      measures: [rawevents.revenue, rawevents.unique_user_count]
+      dynamic_fields:
+      - table_calculation: arpu
+        label: Avg Revenue Per User
+        expression: ${rawevents.revenue} / ${rawevents.unique_user_count}
+        value_format: $#,##0.00
+      sorts: [rawevents.eventdate_date desc, rawevents.is_in_audience desc]
+      limit: 500
+      column_limit: 50
+      stacking: ''
+      show_value_labels: false
+      label_density: 25
+      legend_position: center
+      x_axis_gridlines: false
+      y_axis_gridlines: true
+      show_view_names: true
+      y_axis_combined: true
+      show_y_axis_labels: true
+      show_y_axis_ticks: true
+      y_axis_tick_density: default
+      y_axis_tick_density_custom: 5
+      show_x_axis_label: true
+      show_x_axis_ticks: true
+      x_axis_scale: auto
+      show_null_points: true
+      point_style: none
+      interpolation: linear
+      hidden_fields: [rawevents.unique_user_count, rawevents.revenue]
+      x_axis_label: Date
+    
+    - name: add_a_unique_name_1447437478710
+      title: Daily Sessions Per User by Audience Membership
+      type: looker_area
+      model: mparticle_looker_blocks
+      explore: rawevents
+      listen:
+        date: rawevents.eventdate_date
+        audience_membership_filter: rawevents.audience_membership_filter
+        platform: rawevents.platform
+      dimensions: [rawevents.is_in_audience, rawevents.eventdate_date]
+      pivots: [rawevents.is_in_audience]
+      measures: [rawevents.session_count, rawevents.unique_user_count]
+      dynamic_fields:
+      - table_calculation: sessions_per_user
+        label: Sessions Per User
+        expression: ${rawevents.session_count} / ${rawevents.unique_user_count}
+      sorts: [rawevents.eventdate_date desc, rawevents.is_in_audience desc]
+      limit: 500
+      column_limit: 50
+      stacking: ''
+      show_value_labels: false
+      label_density: 25
+      legend_position: center
+      x_axis_gridlines: false
+      y_axis_gridlines: true
+      show_view_names: true
+      y_axis_combined: true
+      show_y_axis_labels: true
+      show_y_axis_ticks: true
+      y_axis_tick_density: default
+      y_axis_tick_density_custom: 5
+      show_x_axis_label: true
+      show_x_axis_ticks: true
+      x_axis_scale: auto
+      show_null_points: true
+      point_style: none
+      interpolation: linear
+      hidden_fields: [rawevents.unique_user_count, rawevents.session_count]
+      x_axis_label: Date
+
     - name: add_a_unique_name_1447443189312
       title: Daily Avg Session Length by Audience Membership
       type: looker_area
@@ -69,6 +218,7 @@
       listen:
         date: rawevents.eventdate_date
         audience_membership_filter: rawevents.audience_membership_filter
+        platform: rawevents.platform
       dimensions: [rawevents.eventdate_date, rawevents.is_in_audience]
       pivots: [rawevents.is_in_audience]
       measures: [rawevents.avg_session_length]
@@ -104,6 +254,7 @@
       listen:
         date: rawevents.eventdate_date
         audience_membership_filter: rawevents.audience_membership_filter
+        platform: rawevents.platform
       dimensions: [rawevents.eventdate_date, rawevents.is_in_audience]
       pivots: [rawevents.is_in_audience]
       measures: [rawevents.time_spent_in_app, rawevents.unique_user_count]
@@ -136,83 +287,4 @@
       interpolation: linear
       x_axis_label: Date
 
-    - name: add_a_unique_name_1447437478710
-      title: Daily ARPU by Audience Membership
-      type: looker_area
-      model: mparticle_looker_blocks
-      explore: rawevents
-      listen:
-        date: rawevents.eventdate_date
-        audience_membership_filter: rawevents.audience_membership_filter
-      dimensions: [rawevents.is_in_audience, rawevents.eventdate_date]
-      pivots: [rawevents.is_in_audience]
-      measures: [rawevents.revenue, rawevents.unique_user_count]
-      dynamic_fields:
-      - table_calculation: arpu
-        label: Avg Revenue Per User
-        expression: ${rawevents.revenue} / ${rawevents.unique_user_count}
-        value_format: $#,##0.00
-      sorts: [rawevents.eventdate_date desc, rawevents.is_in_audience desc]
-      limit: 500
-      column_limit: 50
-      stacking: ''
-      show_value_labels: false
-      label_density: 25
-      legend_position: center
-      x_axis_gridlines: false
-      y_axis_gridlines: true
-      show_view_names: true
-      y_axis_combined: true
-      show_y_axis_labels: true
-      show_y_axis_ticks: true
-      y_axis_tick_density: default
-      y_axis_tick_density_custom: 5
-      show_x_axis_label: true
-      show_x_axis_ticks: true
-      x_axis_scale: auto
-      show_null_points: true
-      point_style: none
-      interpolation: linear
-      hidden_fields: [rawevents.unique_user_count, rawevents.revenue]
-      x_axis_label: Date
-      
-    - name: add_a_unique_name_1447443500765
-      title: Daily Message Count Per User by Audience Membership
-      type: looker_area
-      model: mparticle_looker_blocks
-      explore: rawevents
-      listen:
-        date: rawevents.eventdate_date
-        audience_membership_filter: rawevents.audience_membership_filter
-      dimensions: [rawevents.eventdate_date, rawevents.is_in_audience]
-      pivots: [rawevents.is_in_audience]
-      measures: [rawevents.count, rawevents.unique_user_count]
-      dynamic_fields:
-      - table_calculation: event_count_per_user
-        label: Event Count Per User
-        expression: ${rawevents.count} / ${rawevents.unique_user_count}
-        value_format: '#,##0'
-      sorts: [rawevents.eventdate_date desc, rawevents.is_in_audience desc]
-      limit: 500
-      column_limit: 50
-      stacking: ''
-      show_value_labels: false
-      label_density: 25
-      legend_position: center
-      x_axis_gridlines: false
-      y_axis_gridlines: true
-      show_view_names: true
-      y_axis_combined: true
-      show_y_axis_labels: true
-      show_y_axis_ticks: true
-      y_axis_tick_density: default
-      y_axis_tick_density_custom: 5
-      show_x_axis_label: true
-      show_x_axis_ticks: true
-      x_axis_scale: auto
-      show_null_points: true
-      point_style: none
-      interpolation: linear
-      hidden_fields: [rawevents.unique_user_count, rawevents.count]
-      x_axis_label: Date
     
