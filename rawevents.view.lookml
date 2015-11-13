@@ -34,7 +34,7 @@
     sql: ${TABLE}.attributioncampaign
 
   - dimension: attribution_publisher_name
-    sql: ${TABLE}.attributionpublisher
+    sql: isnull(${TABLE}.attributionpublisher, 'UnAttributed')
 
   - dimension: attribution_service_provider_name
     sql: ${TABLE}.attributionserviceprovider
@@ -216,10 +216,22 @@
   - measure: revenue
     type: sum
     sql: ${event_ltv_value}
+    value_format: '$#,##0.00'
     
   - measure: install_count
     type: sum
     sql: case when ${message_type_id} = 7 then 1 else 0 end
+  
+  - measure: time_spent_in_app
+    type: sum
+    sql: isnull(case when ${message_type_id} = 2 then ${event_length} / 1000 end, 0)
+    
+  # Audience analytics fields #
+  - filter: audience_membership_filter
+  
+  - dimension: is_in_audience
+    type: yesno
+    sql: case when {% condition audience_membership_filter %} ${audience_membership} {% endcondition %} then 1 else 0 end
     
   # Funnel Fields #
   

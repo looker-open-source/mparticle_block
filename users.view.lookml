@@ -52,6 +52,9 @@
     sql: ${TABLE}.ltv
     value_format: '$#,##0.00'
   
+  - dimension: spender_type
+    sql: case when ${ltv} > 0 then 'spender' else 'non-spender' end
+    
   - dimension: time_spent_in_app
     type: int
     sql: ${TABLE}.time_spent_in_app
