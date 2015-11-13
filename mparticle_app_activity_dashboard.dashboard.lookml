@@ -75,7 +75,51 @@
       show_view_names: true
       y_axis_labels: [Monthly Active Users]
       x_axis_label: App
-      
+    
+    - name: add_a_unique_name_1447446044934
+      title: Session Count Breakdown by OS Version
+      type: looker_column
+      model: mparticle_looker_blocks
+      explore: rawevents
+      listen:
+        date: rawevents.eventdate_date
+        platform: rawevents.platform
+      dimensions: [rawevents.os_version, rawevents.platform]
+      pivots: [rawevents.platform]
+      measures: [rawevents.session_count]
+      dynamic_fields:
+      - table_calculation: session_pct
+        label: session_pct
+        expression: ${rawevents.session_count} / ${rawevents.session_count:total}
+        value_format: 0.0%
+      sorts: [rawevents.session_count desc 0, rawevents.platform]
+      limit: 500
+      column_limit: 50
+      total: true
+      stacking: ''
+      show_value_labels: false
+      label_density: 25
+      legend_position: center
+      x_axis_gridlines: false
+      y_axis_gridlines: true
+      show_view_names: true
+      y_axis_combined: true
+      show_y_axis_labels: true
+      show_y_axis_ticks: true
+      y_axis_tick_density: default
+      y_axis_tick_density_custom: 5
+      show_x_axis_label: true
+      show_x_axis_ticks: true
+      x_axis_scale: auto
+      ordering: none
+      show_null_labels: false
+      value_labels: legend
+      label_type: labPer
+      hidden_fields: [rawevents.session_count]
+      y_axis_labels: ['% of Sessions']
+      y_axis_value_format: 0.0%
+      x_axis_label: OS Version
+  
     - name: Dau by app Platform
       title: DAU by App Platform
       type: looker_area
@@ -151,6 +195,86 @@
       show_null_points: true
       y_axis_labels: [Avg Session Length (in sec)]
       x_axis_label: Date
+    
+    - name: add_a_unique_name_1447446597510
+      title: Daily Time Spent In App Per User by App
+      type: looker_area
+      model: mparticle_looker_blocks
+      explore: rawevents
+      listen:
+        date: rawevents.eventdate_date
+        platform: rawevents.platform
+      dimensions: [rawevents.eventdate_date, rawevents.app_name_platform]
+      pivots: [rawevents.app_name_platform]
+      measures: [rawevents.time_spent_in_app, rawevents.unique_user_count]
+      dynamic_fields:
+      - table_calculation: time_spent_in_app_per_user
+        label: Time Spent In App Per User
+        expression: ${rawevents.time_spent_in_app} / ${rawevents.unique_user_count}
+        value_format: '0'
+      sorts: [rawevents.session_count desc 0, rawevents.platform, rawevents.app_name_platform]
+      limit: 500
+      column_limit: 50
+      stacking: ''
+      show_value_labels: false
+      label_density: 25
+      legend_position: center
+      x_axis_gridlines: false
+      y_axis_gridlines: true
+      show_view_names: true
+      y_axis_combined: true
+      show_y_axis_labels: true
+      show_y_axis_ticks: true
+      y_axis_tick_density: default
+      y_axis_tick_density_custom: 5
+      show_x_axis_label: true
+      show_x_axis_ticks: true
+      x_axis_scale: auto
+      show_null_points: true
+      point_style: none
+      interpolation: linear
+      x_axis_label: Date
+      y_axis_labels: [Time Spent In App Per User (in sec)]
+      hidden_fields: [rawevents.unique_user_count, rawevents.time_spent_in_app]
+
+    - name: add_a_unique_name_1447448040138
+      title: Session Count by Hour of Day by App
+      type: looker_area
+      model: mparticle_looker_blocks
+      explore: rawevents
+      listen:
+        date: rawevents.eventdate_date
+        platform: rawevents.platform
+      dimensions: [rawevents.app_name_platform, rawevents.hour]
+      pivots: [rawevents.app_name_platform]
+      measures: [rawevents.session_count]
+      sorts: [rawevents.session_count desc 1, rawevents.app_name_platform]
+      limit: 500
+      column_limit: 50
+      show_view_names: true
+      ordering: none
+      show_null_labels: false
+      stacking: ''
+      show_value_labels: false
+      label_density: 25
+      legend_position: center
+      x_axis_gridlines: false
+      y_axis_gridlines: true
+      y_axis_combined: true
+      show_y_axis_labels: true
+      show_y_axis_ticks: true
+      y_axis_tick_density: default
+      y_axis_tick_density_custom: 5
+      show_x_axis_label: true
+      show_x_axis_ticks: true
+      x_axis_scale: auto
+      point_style: circle
+      interpolation: linear
+      show_null_points: true
+      value_labels: legend
+      label_type: labPer
+      x_axis_label: Hour of Day
+      y_axis_labels: [Session Count]
 
     - name: Daily Installs by App Platform
       title: Daily Installs by App Platform
@@ -263,41 +387,6 @@
       show_null_points: true
       x_axis_label: Date
       y_axis_labels: [Session Count]
-
-    - name: Daily Incoming Message Count by App Platform
-      title: Daily Incoming Message Count by App Platform
-      type: looker_area
-      model: mparticle_looker_blocks
-      explore: rawevents
-      listen:
-        date: rawevents.eventdate_date
-        platform: rawevents.platform
-      dimensions: [rawevents.app_name_platform, rawevents.eventdate_date]
-      pivots: [rawevents.app_name_platform]
-      measures: [rawevents.count]
-      sorts: [rawevents.unique_user_count desc, rawevents.app_name_platform]
-      limit: 500
-      column_limit: 50
-      stacking: ''
-      show_value_labels: false
-      label_density: 25
-      legend_position: center
-      x_axis_gridlines: false
-      y_axis_gridlines: true
-      show_view_names: true
-      y_axis_combined: true
-      show_y_axis_labels: true
-      show_y_axis_ticks: true
-      y_axis_tick_density: default
-      y_axis_tick_density_custom: 5
-      show_x_axis_label: true
-      show_x_axis_ticks: true
-      x_axis_scale: auto
-      show_null_points: true
-      point_style: none
-      interpolation: linear
-      x_axis_label: Date
-      y_axis_labels: [Incoming Message Count]
 
     - name: Top 50 Event Name Stats
       title: Top 50 Event Name Stats

@@ -99,6 +99,10 @@
     timeframes: [hour, date, week, month]
     sql: ${TABLE}.eventhour
 
+  - dimension: hour
+    type: int
+    sql: date_part(h, ${TABLE}.eventhour)
+
   - dimension: event_id
     type: int
     sql: ${TABLE}.eventid
@@ -163,7 +167,10 @@
     type: int
     sql: ${TABLE}.samplingpercentage
 
-  - dimension: sdkversion
+  - dimension: os_version
+    sql: ${TABLE}.osversion
+    
+  - dimension: sdk_version
     sql: ${TABLE}.sdkversion
 
   - dimension: session_id
