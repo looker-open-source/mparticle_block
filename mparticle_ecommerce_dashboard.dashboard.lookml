@@ -47,6 +47,54 @@
       
   elements:
 
+  - name: add_a_unique_name_1447703601448
+    title: Total Revenue
+    type: single_value
+    model: mparticle_looker_blocks
+    explore: rawevents
+    measures: [rawevents.revenue]
+    listen:
+      date: rawevents.eventdate_date
+      platform: rawevents.platform
+    sorts: [rawevents.revenue desc]
+    limit: 500
+    font_size: small
+    height: 2
+    width: 4
+  
+  - name: add_a_unique_name_1447715390404
+    title: Unique User Count
+    type: single_value
+    model: mparticle_looker_blocks
+    explore: rawevents
+    measures: [rawevents.unique_user_count]
+    listen:
+      date: rawevents.eventdate_date
+      platform: rawevents.platform
+    sorts: [rawevents.unique_user_count desc]
+    limit: 500
+    font_size: small
+    height: 2
+    width: 4
+  
+  - name: add_a_unique_name_1447715454459
+    title: ARPU
+    type: single_value
+    model: mparticle_looker_blocks
+    explore: rawevents
+    measures: [rawevents.arpu]
+    listen:
+      date: rawevents.eventdate_date
+      platform: rawevents.platform
+    sorts: [rawevents.arpu desc]
+    limit: 500
+    font_size: small
+    height: 2
+    width: 4
+
+
+
+  
   - name: Revenue by Attribution Source
     title: Revenue by Attribution Source
     listen:

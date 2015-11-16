@@ -232,6 +232,12 @@
   - measure: time_spent_in_app
     type: sum
     sql: isnull(case when ${message_type_id} = 2 then ${event_length} / 1000 end, 0)
+  
+  - measure: arpu
+    label: "ARPU"
+    type: number
+    sql: ${revenue} / ${unique_user_count}
+    value_format: '$#,##0.00'
     
   # Audience analytics fields #
   - filter: audience_membership_filter
