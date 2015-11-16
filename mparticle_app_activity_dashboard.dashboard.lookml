@@ -473,29 +473,24 @@
         funnel.event_3_uu_count: Event 3
         funnel.event_4_uu_count: Event 4
         
-    - name: add_a_unique_name_1447350016831
-      title: User Retention
-      type: looker_column
+    - name: add_a_unique_name_1447703126712
+      title: User Retention by Attribution Source
+      type: looker_area
       model: mparticle_looker_blocks
       explore: rawevents
-      listen:
-        date: rawevents.eventdate_date
-        platform: rawevents.platform
       dimensions: [rawevents.weeks_since_intall, users.attribution_source]
-      pivots: [rawevents.weeks_since_intall]
+      pivots: [users.attribution_source]
       measures: [rawevents.unique_user_count]
       dynamic_fields:
       - table_calculation: user_retention_pct
         label: user retention pct
-        expression: ${rawevents.unique_user_count} / pivot_index(${rawevents.unique_user_count}, 1)
+        expression: ${rawevents.unique_user_count} / max(${rawevents.unique_user_count})
         value_format: '#,##0.00%'
-      sorts: [rawevents.weeks_since_intall, rawevents.unique_user_count desc 0]
+      sorts: [rawevents.weeks_since_intall, rawevents.unique_user_count desc 0, users.attribution_source]
       limit: 500
       column_limit: 50
       hidden_fields: [rawevents.unique_user_count]
       show_row_numbers: true
-      ordering: none
-      show_null_labels: false
       stacking: ''
       show_value_labels: false
       label_density: 25
@@ -517,6 +512,10 @@
       show_view_names: true
       value_labels: legend
       label_type: labPer
+      ordering: none
+      show_null_labels: false
       show_dropoff: false
-      swap_axes: false
-        
+      y_axis_labels: [User Retention Percent %]
+      y_axis_value_format: 0%
+      x_axis_label: Weeks since install
+    
