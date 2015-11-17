@@ -313,7 +313,7 @@
       show_x_axis_label: true
       show_x_axis_ticks: true
       x_axis_scale: auto
-      point_style: circle
+      point_style: none
       interpolation: linear
       show_null_points: true
       value_labels: legend
