@@ -54,7 +54,7 @@
     explore: rawevents
     measures: [rawevents.revenue]
     listen:
-      date: rawevents.eventdate_date
+      date: rawevents.event_date
       platform: rawevents.platform
     sorts: [rawevents.revenue desc]
     limit: 500
@@ -69,7 +69,7 @@
     explore: rawevents
     measures: [rawevents.unique_user_count]
     listen:
-      date: rawevents.eventdate_date
+      date: rawevents.event_date
       platform: rawevents.platform
     sorts: [rawevents.unique_user_count desc]
     limit: 500
@@ -84,7 +84,7 @@
     explore: rawevents
     measures: [rawevents.arpu]
     listen:
-      date: rawevents.eventdate_date
+      date: rawevents.event_date
       platform: rawevents.platform
     sorts: [rawevents.arpu desc]
     limit: 500
@@ -98,7 +98,7 @@
   - name: Revenue by Attribution Source
     title: Revenue by Attribution Source
     listen:
-      date: rawevents.eventdate_date
+      date: rawevents.event_date
       platform: rawevents.platform
     type: looker_column
     model: mparticle_looker_blocks
@@ -146,7 +146,7 @@
   - name: Revenue by Hour of Day
     title: Revenue by Hour of Day
     listen:
-      date: rawevents.eventdate_date
+      date: rawevents.event_date
       platform: rawevents.platform
     type: looker_column
     model: mparticle_looker_blocks
@@ -194,19 +194,19 @@
   - name: Revenue & ARPU by Day
     title: Revenue & ARPU by Day
     listen:
-      date: rawevents.eventdate_date
+      date: rawevents.event_date
       platform: rawevents.platform
     type: looker_column
     model: mparticle_looker_blocks
     explore: rawevents
-    dimensions: [rawevents.eventdate_date]
+    dimensions: [rawevents.event_date]
     measures: [rawevents.revenue, rawevents.unique_user_count]
     dynamic_fields:
     - table_calculation: arpu
       label: ARPU
       expression: ${rawevents.revenue} / ${rawevents.unique_user_count}
       value_format: $#,##0.00
-    sorts: [rawevents.eventdate_date]
+    sorts: [rawevents.event_date]
     limit: 500
     stacking: ''
     show_value_labels: false
@@ -248,7 +248,7 @@
       funnel.event_4_uu_count, funnel.event_5_uu_count]
     #dimensions: [rawevents.app_name_platform]
     listen:
-      date: rawevents.eventdate_date
+      date: rawevents.event_date
       event_1: rawevents.event_1
       event_2: rawevents.event_2
       event_3: rawevents.event_3

@@ -36,6 +36,51 @@
       field: rawevents.event_name
       
   elements:
+    - name: add_a_unique_name_1447720576943
+      title: Session Count
+      type: single_value
+      model: mparticle_looker_blocks
+      explore: rawevents
+      measures: [rawevents.session_count]
+      listen:
+        date: rawevents.event_date
+        platform: rawevents.platform
+      sorts: [rawevents.event_type_id, rawevents.platform, rawevents.session_count desc]
+      limit: 500
+      font_size: small
+      height: 2
+      width: 4
+    
+    - name: add_a_unique_name_1447720717803
+      title: Average Session Length (Seconds)
+      type: single_value
+      model: mparticle_looker_blocks
+      explore: rawevents
+      measures: [rawevents.avg_session_length]
+      listen:
+        date: rawevents.event_date
+        platform: rawevents.platform
+      sorts: [rawevents.event_type_id, rawevents.platform, rawevents.avg_session_length desc]
+      limit: 500
+      font_size: small
+      height: 2
+      width: 4
+    
+    - name: add_a_unique_name_1447720645961
+      title: Total Installs
+      type: single_value
+      model: mparticle_looker_blocks
+      explore: rawevents
+      measures: [rawevents.install_count]
+      listen:
+        date: rawevents.event_date
+        platform: rawevents.platform
+      sorts: [rawevents.event_type_id, rawevents.platform, rawevents.install_count desc]
+      limit: 500
+      font_size: small
+      height: 2
+      width: 4
+  
     - name: uu by App Platform
       title: Active Users by App Platform
       type: looker_column
@@ -44,7 +89,7 @@
       dimensions: [rawevents.app_name_platform]
       measures: [rawevents.unique_user_count]
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         platform: rawevents.platform
       sorts: [rawevents.unique_user_count desc]
       limit: 500
@@ -82,7 +127,7 @@
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         platform: rawevents.platform
       dimensions: [rawevents.os_version, rawevents.platform]
       pivots: [rawevents.platform]
@@ -126,12 +171,12 @@
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         platform: rawevents.platform
-      dimensions: [rawevents.app_name_platform, rawevents.eventdate_date]
+      dimensions: [rawevents.app_name_platform, rawevents.event_date]
       pivots: [rawevents.app_name_platform]
       measures: [rawevents.unique_user_count]
-      sorts: [rawevents.eventdate_date desc, rawevents.app_name_platform]
+      sorts: [rawevents.event_date desc, rawevents.app_name_platform]
       limit: 500
       column_limit: 50
       show_view_names: true
@@ -165,12 +210,12 @@
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         platform: rawevents.platform
-      dimensions: [rawevents.eventdate_date, rawevents.app_name_platform]
+      dimensions: [rawevents.event_date, rawevents.app_name_platform]
       pivots: [rawevents.app_name_platform]
       measures: [rawevents.avg_session_length]
-      sorts: [rawevents.eventdate_date desc, rawevents.app_name_platform]
+      sorts: [rawevents.event_date desc, rawevents.app_name_platform]
       limit: 500
       column_limit: 50
       stacking: ''
@@ -202,9 +247,9 @@
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         platform: rawevents.platform
-      dimensions: [rawevents.eventdate_date, rawevents.app_name_platform]
+      dimensions: [rawevents.event_date, rawevents.app_name_platform]
       pivots: [rawevents.app_name_platform]
       measures: [rawevents.time_spent_in_app, rawevents.unique_user_count]
       dynamic_fields:
@@ -243,7 +288,7 @@
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         platform: rawevents.platform
       dimensions: [rawevents.app_name_platform, rawevents.hour]
       pivots: [rawevents.app_name_platform]
@@ -282,12 +327,12 @@
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         platform: rawevents.platform
-      dimensions: [rawevents.app_name_platform, rawevents.eventdate_date]
+      dimensions: [rawevents.app_name_platform, rawevents.event_date]
       pivots: [rawevents.app_name_platform]
       measures: [rawevents.install_count]
-      sorts: [rawevents.eventdate_date desc, rawevents.app_name_platform]
+      sorts: [rawevents.event_date desc, rawevents.app_name_platform]
       limit: 500
       column_limit: 50
       stacking: ''
@@ -319,12 +364,12 @@
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         platform: rawevents.platform
-      dimensions: [rawevents.app_name_platform, rawevents.eventdate_date]
+      dimensions: [rawevents.app_name_platform, rawevents.event_date]
       pivots: [rawevents.app_name_platform]
       measures: [rawevents.revenue]
-      sorts: [rawevents.eventdate_date desc, rawevents.app_name_platform]
+      sorts: [rawevents.event_date desc, rawevents.app_name_platform]
       limit: 500
       column_limit: 50
       stacking: ''
@@ -357,12 +402,12 @@
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         platform: rawevents.platform
-      dimensions: [rawevents.app_name_platform, rawevents.eventdate_date]
+      dimensions: [rawevents.app_name_platform, rawevents.event_date]
       pivots: [rawevents.app_name_platform]
       measures: [rawevents.session_count]
-      sorts: [rawevents.eventdate_date desc, rawevents.app_name_platform]
+      sorts: [rawevents.event_date desc, rawevents.app_name_platform]
       limit: 500
       column_limit: 50
       stacking: ''
@@ -394,7 +439,7 @@
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         platform: rawevents.platform
       dimensions: [rawevents.event_name]
       measures: [rawevents.count, rawevents.unique_user_count]
@@ -437,7 +482,7 @@
         funnel.event_4_uu_count]
       dimensions: [rawevents.app_name_platform]
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         event_1: rawevents.event_1
         event_2: rawevents.event_2
         event_3: rawevents.event_3
@@ -475,18 +520,21 @@
         
     - name: add_a_unique_name_1447703126712
       title: User Retention by Attribution Source
-      type: looker_area
+      type: looker_line
       model: mparticle_looker_blocks
       explore: rawevents
-      dimensions: [rawevents.weeks_since_intall, users.attribution_source]
+      dimensions: [rawevents.weeks_since_install, users.attribution_source]
       pivots: [users.attribution_source]
       measures: [rawevents.unique_user_count]
+      filters:
+        rawevents.weeks_since_install: NOT NULL
+        users.attribution_source: -NULL
       dynamic_fields:
       - table_calculation: user_retention_pct
         label: user retention pct
         expression: ${rawevents.unique_user_count} / max(${rawevents.unique_user_count})
         value_format: '#,##0.00%'
-      sorts: [rawevents.weeks_since_intall, rawevents.unique_user_count desc 0, users.attribution_source]
+      sorts: [rawevents.weeks_since_install, rawevents.unique_user_count desc 0, users.attribution_source]
       limit: 500
       column_limit: 50
       hidden_fields: [rawevents.unique_user_count]

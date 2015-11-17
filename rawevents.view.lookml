@@ -41,6 +41,7 @@
 
   - dimension: audience_membership
     sql: ${TABLE}.audiencemembership
+    bypass_suggest_restrictions: true
 
   - dimension: batch_id
     type: int
@@ -64,6 +65,7 @@
 
   - dimension: country_code
     sql: ${TABLE}.countrycode
+    bypass_suggest_restrictions: true
 
   - dimension: customer_id
     sql: ${TABLE}.customerid
@@ -73,6 +75,7 @@
 
   - dimension: device_model
     sql: ${TABLE}.devicemodel
+    bypass_suggest_restrictions: true
 
   - dimension: device_utc_offset
     type: int
@@ -81,14 +84,15 @@
   - dimension: email
     sql: ${TABLE}.email
 
-  - dimension: entrypoint_type
+  - dimension: entry_point_type
     type: number
     sql: ${TABLE}.entrypointtype
+    bypass_suggest_restrictions: true
 
   - dimension: event_attributes
     sql: ${TABLE}.eventattributes
 
-  - dimension_group: eventdate
+  - dimension_group: event
     type: time
     timeframes: [date, week, month]
     convert_tz: false
@@ -121,6 +125,7 @@
 
   - dimension: event_name
     sql: ${TABLE}.eventname
+    bypass_suggest_restrictions: true
 
   - dimension: event_start_timestamp
     type: time
@@ -159,6 +164,7 @@
 
   - dimension: platform
     sql: ${TABLE}.platform
+    bypass_suggest_restrictions: true
 
   - dimension: region_code
     sql: ${TABLE}.regioncode
@@ -198,11 +204,11 @@
 
   - dimension: days_since_install
     type: int
-    sql: ${eventdate_date} - ${users.install_timestamp_date}
+    sql: ${event_date} - ${users.install_timestamp_date}
     
-  - dimension: weeks_since_intall
+  - dimension: weeks_since_install
     type: int
-    sql: datediff(week, ${users.install_timestamp_date}, ${eventdate_date})
+    sql: datediff(week, ${users.install_timestamp_date}, ${event_date})
     
   - measure: count
     type: count
@@ -241,6 +247,9 @@
     
   # Audience analytics fields #
   - filter: audience_membership_filter
+    suggest_explore: rawevents
+    suggest_dimension: rawevents.audience_membership
+    bypass_suggest_restrictions: true
   
   - dimension: is_in_audience
     type: yesno

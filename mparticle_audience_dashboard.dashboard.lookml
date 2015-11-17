@@ -1,5 +1,5 @@
 - dashboard: mparticle_audience_dashboard
-  title: Mparticle Audience Dashboard
+  title: mParticle Audience Dashboard
   layout: tile
   tile_size: 100
   refresh: 6 hours
@@ -16,9 +16,10 @@
       field: rawevents.platform
       
     - name: audience_membership_filter
-      type: string_filter
+      type: field_filter
       explore: rawevents
-      field: rawevents.audience_membership_filter
+      field: rawevents.audience_membership
+      default_value: '["4538"]' ## change to relevant default audience measurement value for block implementation 
   
   elements:
     - name: add_a_unique_name_1447443937174
@@ -26,10 +27,10 @@
       type: looker_area
       model: mparticle_looker_blocks
       explore: rawevents
-      dimensions: [rawevents.eventdate_date]
+      dimensions: [rawevents.event_date]
       measures: [rawevents.unique_user_count]
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         audience_membership_filter: rawevents.audience_membership_filter
         platform: rawevents.platform
       filters:
@@ -68,7 +69,7 @@
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         audience_membership_filter: rawevents.audience_membership_filter
         platform: rawevents.platform
       dimensions: [rawevents.is_in_audience]
@@ -135,10 +136,10 @@
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         audience_membership_filter: rawevents.audience_membership_filter
         platform: rawevents.platform
-      dimensions: [rawevents.is_in_audience, rawevents.eventdate_date]
+      dimensions: [rawevents.is_in_audience, rawevents.event_date]
       pivots: [rawevents.is_in_audience]
       measures: [rawevents.revenue, rawevents.unique_user_count]
       dynamic_fields:
@@ -146,7 +147,7 @@
         label: Avg Revenue Per User
         expression: ${rawevents.revenue} / ${rawevents.unique_user_count}
         value_format: $#,##0.00
-      sorts: [rawevents.eventdate_date desc, rawevents.is_in_audience desc]
+      sorts: [rawevents.event_date desc, rawevents.is_in_audience desc]
       limit: 500
       column_limit: 50
       stacking: ''
@@ -176,17 +177,17 @@
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         audience_membership_filter: rawevents.audience_membership_filter
         platform: rawevents.platform
-      dimensions: [rawevents.is_in_audience, rawevents.eventdate_date]
+      dimensions: [rawevents.is_in_audience, rawevents.event_date]
       pivots: [rawevents.is_in_audience]
       measures: [rawevents.session_count, rawevents.unique_user_count]
       dynamic_fields:
       - table_calculation: sessions_per_user
         label: Sessions Per User
         expression: ${rawevents.session_count} / ${rawevents.unique_user_count}
-      sorts: [rawevents.eventdate_date desc, rawevents.is_in_audience desc]
+      sorts: [rawevents.event_date desc, rawevents.is_in_audience desc]
       limit: 500
       column_limit: 50
       stacking: ''
@@ -216,13 +217,13 @@
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         audience_membership_filter: rawevents.audience_membership_filter
         platform: rawevents.platform
-      dimensions: [rawevents.eventdate_date, rawevents.is_in_audience]
+      dimensions: [rawevents.event_date, rawevents.is_in_audience]
       pivots: [rawevents.is_in_audience]
       measures: [rawevents.avg_session_length]
-      sorts: [rawevents.eventdate_date desc, rawevents.is_in_audience desc]
+      sorts: [rawevents.event_date desc, rawevents.is_in_audience desc]
       limit: 500
       column_limit: 50
       stacking: ''
@@ -252,10 +253,10 @@
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
-        date: rawevents.eventdate_date
+        date: rawevents.event_date
         audience_membership_filter: rawevents.audience_membership_filter
         platform: rawevents.platform
-      dimensions: [rawevents.eventdate_date, rawevents.is_in_audience]
+      dimensions: [rawevents.event_date, rawevents.is_in_audience]
       pivots: [rawevents.is_in_audience]
       measures: [rawevents.time_spent_in_app, rawevents.unique_user_count]
       dynamic_fields:
