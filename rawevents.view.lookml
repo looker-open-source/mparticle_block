@@ -56,9 +56,11 @@
 
   - dimension: device_brand
     sql: ${TABLE}.brand
+    bypass_suggest_restrictions: true
 
   - dimension: city_name
     sql: ${TABLE}.cityname
+    bypass_suggest_restrictions: true
 
   - dimension: client_ip
     sql: ${TABLE}.clientip
@@ -168,6 +170,7 @@
 
   - dimension: region_code
     sql: ${TABLE}.regioncode
+    bypass_suggest_restrictions: true
 
   - dimension: sampling_percentage
     type: int
@@ -175,9 +178,11 @@
 
   - dimension: os_version
     sql: ${TABLE}.osversion
+    bypass_suggest_restrictions: true
     
   - dimension: sdk_version
     sql: ${TABLE}.sdkversion
+    bypass_suggest_restrictions: true
 
   - dimension: session_id
     type: int
