@@ -19,7 +19,7 @@
       type: field_filter
       explore: rawevents
       field: rawevents.audience_membership
-      default_value: '["4538"]' ## change to relevant default audience measurement value for block implementation 
+      default_value: '"1234"' ## when using this dashboard, users need to change the value to relevant audience ID for audience analytics
   
   elements:
     - name: add_a_unique_name_1447443937174
@@ -74,12 +74,8 @@
         platform: rawevents.platform
       dimensions: [rawevents.is_in_audience]
       measures: [rawevents.avg_session_length, rawevents.time_spent_in_app, rawevents.unique_user_count,
-        rawevents.revenue, rawevents.session_count]
+        rawevents.arpu, rawevents.session_count]
       dynamic_fields:
-      - table_calculation: arpu
-        label: ARPU
-        expression: ${rawevents.revenue} / ${rawevents.unique_user_count}
-        value_format: $#,##0.00
       - table_calculation: sessions_per_user
         label: Sessions Per User
         expression: ${rawevents.session_count} / ${rawevents.unique_user_count}
@@ -90,7 +86,7 @@
         value_format: '#,##0.0'
       - table_calculation: arpu_lift
         label: ARPU Lift %
-        expression: if(${arpu} > 0, if(offset(${arpu}, -1) > 0, ${arpu} / offset(${arpu}, -1) - 1, null), null)
+        expression: if(${rawevents.arpu} > 0, if(offset(${rawevents.arpu}, -1) > 0, ${rawevents.arpu} / offset(${rawevents.arpu}, -1) - 1, null), null)
         value_format: '#,##0.0%'
       - table_calculation: sessions_per_user_lift
         label: Sessions Per User Lift %
@@ -124,8 +120,8 @@
       x_axis_scale: auto
       ordering: none
       show_null_labels: false
-      hidden_fields: [rawevents.time_spent_in_app, rawevents.unique_user_count, rawevents.revenue,
-        rawevents.session_count, time_spent_in_app_per_user, sessions_per_user, arpu, rawevents.avg_session_length]
+      hidden_fields: [rawevents.time_spent_in_app, rawevents.unique_user_count, rawevents.arpu,
+        rawevents.session_count, time_spent_in_app_per_user, sessions_per_user, rawevents.avg_session_length]
       y_axis_value_format: '#,##0.0%'
       y_axis_labels: [Lift %]
       hidden_points_if_no: [rawevents.is_in_audience]
@@ -141,12 +137,7 @@
         platform: rawevents.platform
       dimensions: [rawevents.is_in_audience, rawevents.event_date]
       pivots: [rawevents.is_in_audience]
-      measures: [rawevents.revenue, rawevents.unique_user_count]
-      dynamic_fields:
-      - table_calculation: arpu
-        label: Avg Revenue Per User
-        expression: ${rawevents.revenue} / ${rawevents.unique_user_count}
-        value_format: $#,##0.00
+      measures: [rawevents.arpu]
       sorts: [rawevents.event_date desc, rawevents.is_in_audience desc]
       limit: 500
       column_limit: 50
@@ -168,9 +159,9 @@
       show_null_points: true
       point_style: none
       interpolation: linear
-      hidden_fields: [rawevents.unique_user_count, rawevents.revenue]
       x_axis_label: Date
-    
+      y_axis_labels: ARPU
+      
     - name: add_a_unique_name_1447437478710
       title: Daily Sessions Per User by Audience Membership
       type: looker_area

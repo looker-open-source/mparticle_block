@@ -1,4 +1,5 @@
 - view: users
+  # change to relevant schema name for block implementation 
   derived_table:
     sql_trigger_value: SELECT CURRENT_DATE
     distkey: mparticle_user_id

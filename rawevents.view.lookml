@@ -1,5 +1,5 @@
 - view: rawevents
-  sql_table_name: app_191.eventsview
+  sql_table_name: app_191.eventsview  ## change to relevant schema name for block implementation 
   
   fields:
 

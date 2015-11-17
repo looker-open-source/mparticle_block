@@ -92,8 +92,6 @@
     height: 2
     width: 4
 
-
-
   
   - name: Revenue by Attribution Source
     title: Revenue by Attribution Source
@@ -104,12 +102,7 @@
     model: mparticle_looker_blocks
     explore: rawevents
     dimensions: [rawevents.attribution_publisher_name]
-    measures: [rawevents.revenue, rawevents.unique_user_count]
-    dynamic_fields:
-    - table_calculation: arpu
-      label: ARPU
-      expression: ${rawevents.revenue} / ${rawevents.unique_user_count}
-      value_format: $#,##0.00
+    measures: [rawevents.revenue, rawevents.arpu]
     sorts: [rawevents.revenue desc]
     limit: 500
     stacking: ''
@@ -127,19 +120,18 @@
     show_x_axis_label: true
     show_x_axis_ticks: true
     x_axis_scale: auto
-    hidden_fields: [rawevents.unique_user_count]
     ordering: none
     show_null_labels: false
     point_style: circle
     interpolation: linear
     show_null_points: true
     x_axis_label: Attribution Source
-    y_axis_labels: [Revenue]
+    y_axis_labels: [Total Revenue, ARPU]
     y_axis_value_format: $#,##0.00
     series_types:
-      arpu: line
+      rawevents.arpu: line
     series_labels:
-      arpu: ARPU
+      rawevents.arpu: ARPU
       rawevents.revenue: Total Revenue
     y_axis_orientation: [left, right]
   
@@ -152,12 +144,7 @@
     model: mparticle_looker_blocks
     explore: rawevents
     dimensions: [rawevents.hour]
-    measures: [rawevents.revenue, rawevents.unique_user_count]
-    dynamic_fields:
-    - table_calculation: arpu
-      label: ARPU
-      expression: ${rawevents.revenue} / ${rawevents.unique_user_count}
-      value_format: $#,##0.00
+    measures: [rawevents.revenue, rawevents.arpu]
     sorts: [rawevents.hour]
     limit: 500
     stacking: ''
@@ -175,22 +162,21 @@
     show_x_axis_label: true
     show_x_axis_ticks: true
     x_axis_scale: auto
-    hidden_fields: [rawevents.unique_user_count]
     ordering: none
     show_null_labels: false
     point_style: circle
     interpolation: linear
     show_null_points: true
     x_axis_label: Hour of Day
-    y_axis_labels: [Revenue]
+    y_axis_labels: [Total Revenue, ARPU]
     y_axis_value_format: $#,##0.00
     series_types:
-      arpu: line
+      rawevents.arpu: line
     series_labels:
-      arpu: ARPU
+      rawevents.arpu: ARPU
       rawevents.revenue: Total Revenue
     y_axis_orientation: [left, right]
-  
+
   - name: Revenue & ARPU by Day
     title: Revenue & ARPU by Day
     listen:
@@ -200,12 +186,7 @@
     model: mparticle_looker_blocks
     explore: rawevents
     dimensions: [rawevents.event_date]
-    measures: [rawevents.revenue, rawevents.unique_user_count]
-    dynamic_fields:
-    - table_calculation: arpu
-      label: ARPU
-      expression: ${rawevents.revenue} / ${rawevents.unique_user_count}
-      value_format: $#,##0.00
+    measures: [rawevents.revenue, rawevents.arpu]
     sorts: [rawevents.event_date]
     limit: 500
     stacking: ''
@@ -223,19 +204,18 @@
     show_x_axis_label: true
     show_x_axis_ticks: true
     x_axis_scale: auto
-    hidden_fields: [rawevents.unique_user_count]
     ordering: none
     show_null_labels: false
     point_style: circle
     interpolation: linear
     show_null_points: true
     x_axis_label: Date
-    y_axis_labels: [Total Revenue]
+    y_axis_labels: [Total Revenue, ARPU]
     y_axis_value_format: $#,##0.00
     series_types:
-      arpu: line
+      rawevents.arpu: line
     series_labels:
-      arpu: ARPU
+      rawevents.arpu: ARPU
       rawevents.revenue: Total Revenue
     y_axis_orientation: [left, right]
     
