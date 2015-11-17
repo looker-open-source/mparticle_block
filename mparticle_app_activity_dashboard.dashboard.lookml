@@ -1,7 +1,21 @@
 - dashboard: mparticle_dashboard
   title: mParticle App Activity Dashboard
-  layout: tile
-  tile_size: 100
+  layout: grid
+  rows:
+    - elements: [session_count, average_session_length, total_installs]
+      height: 220
+    - elements: [uu by App Platform,session_cnt_breakdown]
+      height: 400
+    - elements: [Dau by app Platform,Daily Avg Session Length by App Platform]
+      height: 400
+    - elements: [daily_time_spent_in_app, session_cnt_by_hour]
+      height: 400
+    - elements: [Daily Installs by App Platform, Daily Revenue by App Platform]
+      height: 400
+    - elements: [Daily Session Count by App Platform, Top 50 Event Name Stats]
+      height: 400
+    - elements: [Funnel Analytics by App Platform, user_retention]
+      height: 400
   refresh: 1 hour
   
   filters:
@@ -36,7 +50,7 @@
       field: rawevents.event_name
       
   elements:
-    - name: add_a_unique_name_1447720576943
+    - name: session_count
       title: Session Count
       type: single_value
       model: mparticle_looker_blocks
@@ -51,7 +65,7 @@
       height: 2
       width: 4
     
-    - name: add_a_unique_name_1447720717803
+    - name: average_session_length
       title: Average Session Length (Seconds)
       type: single_value
       model: mparticle_looker_blocks
@@ -66,7 +80,7 @@
       height: 2
       width: 4
     
-    - name: add_a_unique_name_1447720645961
+    - name: total_installs
       title: Total Installs
       type: single_value
       model: mparticle_looker_blocks
@@ -98,7 +112,7 @@
       ordering: none
       show_null_labels: false
       stacking: ''
-      show_value_labels: false
+      show_value_labels: true
       label_density: 25
       legend_position: center
       x_axis_gridlines: false
@@ -121,7 +135,7 @@
       y_axis_labels: [Monthly Active Users]
       x_axis_label: App
     
-    - name: add_a_unique_name_1447446044934
+    - name: session_cnt_breakdown
       title: Session Count Breakdown by OS Version
       type: looker_column
       model: mparticle_looker_blocks
@@ -241,7 +255,7 @@
       y_axis_labels: [Avg Session Length (in sec)]
       x_axis_label: Date
     
-    - name: add_a_unique_name_1447446597510
+    - name: daily_time_spent_in_app
       title: Daily Time Spent In App Per User by App
       type: looker_line
       model: mparticle_looker_blocks
@@ -282,7 +296,7 @@
       y_axis_labels: [Time Spent In App Per User (in sec)]
       hidden_fields: [rawevents.unique_user_count, rawevents.time_spent_in_app]
 
-    - name: add_a_unique_name_1447448040138
+    - name: session_cnt_by_hour
       title: Session Count by Hour of Day by App
       type: looker_area
       model: mparticle_looker_blocks
@@ -518,7 +532,7 @@
         funnel.event_3_uu_count: Event 3
         funnel.event_4_uu_count: Event 4
         
-    - name: add_a_unique_name_1447703126712
+    - name: user_retention
       title: User Retention by Attribution Source
       type: looker_line
       model: mparticle_looker_blocks

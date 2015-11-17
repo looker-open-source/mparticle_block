@@ -1,7 +1,13 @@
 - dashboard: mparticle_audience_dashboard
   title: mParticle Audience Dashboard
-  layout: tile
-  tile_size: 100
+  layout: grid
+  rows:
+    - elements: [audience_size_by_day, audience_lift]
+      height: 400
+    - elements: [daily_arpu_by_audience, daily_sessions_per_user]
+      height: 400
+    - elements: [daily_avg_session_length, daily_time_spent_in_app]
+      height: 400
   refresh: 6 hours
   
   filters:
@@ -22,7 +28,7 @@
       default_value: '%"1234"%' ## when using this dashboard, users need to change the value to relevant audience ID for audience analytics
   
   elements:
-    - name: add_a_unique_name_1447443937174
+    - name: audience_size_by_day
       title: Audience Size by Day
       type: looker_area
       model: mparticle_looker_blocks
@@ -63,7 +69,7 @@
       show_null_labels: false
       show_row_numbers: true
 
-    - name: add_a_unique_name_1447456463158
+    - name: audience_lift
       title: Audience Lift % (comparing users in the audience vs not in the audience)
       type: looker_column
       model: mparticle_looker_blocks
@@ -126,7 +132,7 @@
       y_axis_labels: [Lift %]
       hidden_points_if_no: [rawevents.is_in_audience]
     
-    - name: add_a_unique_name_1447437478710
+    - name: daily_arpu_by_audience
       title: Daily ARPU by Audience Membership
       type: looker_area
       model: mparticle_looker_blocks
@@ -162,7 +168,7 @@
       x_axis_label: Date
       y_axis_labels: ARPU
       
-    - name: add_a_unique_name_1447437478710
+    - name: daily_sessions_per_user
       title: Daily Sessions Per User by Audience Membership
       type: looker_area
       model: mparticle_looker_blocks
@@ -202,7 +208,7 @@
       hidden_fields: [rawevents.unique_user_count, rawevents.session_count]
       x_axis_label: Date
 
-    - name: add_a_unique_name_1447443189312
+    - name: daily_avg_session_length
       title: Daily Avg Session Length by Audience Membership
       type: looker_line
       model: mparticle_looker_blocks
@@ -238,7 +244,7 @@
       x_axis_label: Date
       y_axis_labels: [Avg Session Length (in sec)]
 
-    - name: add_a_unique_name_1447444522033
+    - name: daily_time_spent_in_app
       title: Daily Time Spent In App Per User by Audience Membership
       type: looker_line
       model: mparticle_looker_blocks

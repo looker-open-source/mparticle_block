@@ -1,7 +1,13 @@
 - dashboard: mparticle_ecommerce_dashboard
   title: mParticle eCommerce Dashboard
-  layout: tile
-  tile_size: 100
+  layout: grid
+  rows:
+    - elements: [total_revenue, unique_user_count, arpu]
+      height: 220
+    - elements: [Revenue by Attribution Source, Revenue by Hour of Day]
+      height: 400
+    - elements: [Revenue & ARPU by Day, Purchase Funnel Analytics by App Platform]
+      height: 400
   refresh: 1 hour
   
   filters:
@@ -47,7 +53,7 @@
       
   elements:
 
-  - name: add_a_unique_name_1447703601448
+  - name: total_revenue
     title: Total Revenue
     type: single_value
     model: mparticle_looker_blocks
@@ -62,7 +68,7 @@
     height: 2
     width: 4
   
-  - name: add_a_unique_name_1447715390404
+  - name: unique_user_count
     title: Unique User Count
     type: single_value
     model: mparticle_looker_blocks
@@ -77,7 +83,7 @@
     height: 2
     width: 4
   
-  - name: add_a_unique_name_1447715454459
+  - name: arpu
     title: ARPU
     type: single_value
     model: mparticle_looker_blocks
