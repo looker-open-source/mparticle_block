@@ -19,7 +19,7 @@
       type: field_filter
       explore: rawevents
       field: rawevents.audience_membership
-      default_value: '"1234"' ## when using this dashboard, users need to change the value to relevant audience ID for audience analytics
+      default_value: '%1234%' ## when using this dashboard, users need to change the value to relevant audience ID for audience analytics
   
   elements:
     - name: add_a_unique_name_1447443937174
