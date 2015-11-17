@@ -180,7 +180,7 @@
       limit: 500
       column_limit: 50
       show_view_names: true
-      stacking: ''
+      stacking: normal
       show_value_labels: false
       label_density: 25
       legend_position: center
@@ -206,7 +206,7 @@
 
     - name: Daily Avg Session Length by App Platform
       title: Daily Avg Session Length by App Platform
-      type: looker_area
+      type: looker_line
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
@@ -243,7 +243,7 @@
     
     - name: add_a_unique_name_1447446597510
       title: Daily Time Spent In App Per User by App
-      type: looker_area
+      type: looker_line
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
@@ -299,7 +299,7 @@
       show_view_names: true
       ordering: none
       show_null_labels: false
-      stacking: ''
+      stacking: normal
       show_value_labels: false
       label_density: 25
       legend_position: center
@@ -410,7 +410,7 @@
       sorts: [rawevents.event_date desc, rawevents.app_name_platform]
       limit: 500
       column_limit: 50
-      stacking: ''
+      stacking: normal
       show_value_labels: false
       label_density: 25
       legend_position: center

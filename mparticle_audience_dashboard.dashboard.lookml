@@ -204,7 +204,7 @@
 
     - name: add_a_unique_name_1447443189312
       title: Daily Avg Session Length by Audience Membership
-      type: looker_area
+      type: looker_line
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
@@ -240,7 +240,7 @@
 
     - name: add_a_unique_name_1447444522033
       title: Daily Time Spent In App Per User by Audience Membership
-      type: looker_area
+      type: looker_line
       model: mparticle_looker_blocks
       explore: rawevents
       listen:
