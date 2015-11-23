@@ -7,9 +7,9 @@
     type: int
     sql: ${TABLE}.appid
 
-  - dimension: application_family_id
+  - dimension: application_platform_id
     type: int
-    sql: ${TABLE}.applicationfamilyid
+    sql: ${TABLE}.appplatformid
 
   - dimension: application_transition_type_id
     type: int
