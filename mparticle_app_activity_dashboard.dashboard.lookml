@@ -20,14 +20,24 @@
   
   filters:
     - name: date
-      title: Date
+      title: Event Date
       type: date_filter
       default_value: 30 Days
-
+    
+    - name: install_date
+      title: Install Date
+      type: date_filter
+      default_value: 30 Days
+      
     - name: platform
       type: field_filter
       explore: rawevents
       field: rawevents.platform
+    
+    - name: is_debug_data
+      type: field_filter
+      explore: rawevents
+      field: rawevents.is_debug
       
     - name: event_1
       type: field_filter
@@ -59,6 +69,7 @@
       listen:
         date: rawevents.event_date
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       sorts: [rawevents.event_type_id, rawevents.platform, rawevents.session_count desc]
       limit: 500
       font_size: small
@@ -74,6 +85,7 @@
       listen:
         date: rawevents.event_date
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       sorts: [rawevents.event_type_id, rawevents.platform, rawevents.avg_session_length desc]
       limit: 500
       font_size: small
@@ -89,6 +101,7 @@
       listen:
         date: rawevents.event_date
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       sorts: [rawevents.event_type_id, rawevents.platform, rawevents.install_count desc]
       limit: 500
       font_size: small
@@ -105,6 +118,7 @@
       listen:
         date: rawevents.event_date
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       sorts: [rawevents.unique_user_count desc]
       limit: 500
       column_limit: 50
@@ -143,6 +157,7 @@
       listen:
         date: rawevents.event_date
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.os_version, rawevents.platform]
       pivots: [rawevents.platform]
       measures: [rawevents.session_count]
@@ -187,6 +202,7 @@
       listen:
         date: rawevents.event_date
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.app_name_platform, rawevents.event_date]
       pivots: [rawevents.app_name_platform]
       measures: [rawevents.unique_user_count]
@@ -226,6 +242,7 @@
       listen:
         date: rawevents.event_date
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.event_date, rawevents.app_name_platform]
       pivots: [rawevents.app_name_platform]
       measures: [rawevents.avg_session_length]
@@ -263,6 +280,7 @@
       listen:
         date: rawevents.event_date
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.event_date, rawevents.app_name_platform]
       pivots: [rawevents.app_name_platform]
       measures: [rawevents.time_spent_in_app, rawevents.unique_user_count]
@@ -304,6 +322,7 @@
       listen:
         date: rawevents.event_date
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.app_name_platform, rawevents.hour]
       pivots: [rawevents.app_name_platform]
       measures: [rawevents.session_count]
@@ -343,6 +362,7 @@
       listen:
         date: rawevents.event_date
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.app_name_platform, rawevents.event_date]
       pivots: [rawevents.app_name_platform]
       measures: [rawevents.install_count]
@@ -380,6 +400,7 @@
       listen:
         date: rawevents.event_date
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.app_name_platform, rawevents.event_date]
       pivots: [rawevents.app_name_platform]
       measures: [rawevents.revenue]
@@ -418,6 +439,7 @@
       listen:
         date: rawevents.event_date
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.app_name_platform, rawevents.event_date]
       pivots: [rawevents.app_name_platform]
       measures: [rawevents.session_count]
@@ -455,6 +477,7 @@
       listen:
         date: rawevents.event_date
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.event_name]
       measures: [rawevents.count, rawevents.unique_user_count]
       dynamic_fields:
@@ -502,6 +525,7 @@
         event_3: rawevents.event_3
         event_4: rawevents.event_4
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       limit: 500
       column_limit: 50
       show_view_names: true
@@ -537,6 +561,11 @@
       type: looker_line
       model: mparticle_looker_blocks
       explore: rawevents
+      listen:
+        date: rawevents.event_date
+        install_date: users.install_timestamp_date
+        platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.weeks_since_install, users.attribution_source]
       pivots: [users.attribution_source]
       measures: [rawevents.unique_user_count]

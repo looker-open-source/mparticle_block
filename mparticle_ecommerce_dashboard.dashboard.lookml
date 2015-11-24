@@ -12,7 +12,7 @@
   
   filters:
     - name: date
-      title: Date
+      title: Event Date
       type: date_filter
       default_value: 30 Days
     
@@ -20,6 +20,11 @@
       type: field_filter
       explore: rawevents
       field: rawevents.platform
+    
+    - name: is_debug_data
+      type: field_filter
+      explore: rawevents
+      field: rawevents.is_debug
       
     - name: event_1
       type: field_filter
@@ -62,6 +67,7 @@
     listen:
       date: rawevents.event_date
       platform: rawevents.platform
+      is_debug_data: rawevents.is_debug
     sorts: [rawevents.revenue desc]
     limit: 500
     font_size: small
@@ -77,6 +83,7 @@
     listen:
       date: rawevents.event_date
       platform: rawevents.platform
+      is_debug_data: rawevents.is_debug
     sorts: [rawevents.unique_user_count desc]
     limit: 500
     font_size: small
@@ -92,6 +99,7 @@
     listen:
       date: rawevents.event_date
       platform: rawevents.platform
+      is_debug_data: rawevents.is_debug
     sorts: [rawevents.arpu desc]
     limit: 500
     font_size: small
@@ -104,6 +112,7 @@
     listen:
       date: rawevents.event_date
       platform: rawevents.platform
+      is_debug_data: rawevents.is_debug
     type: looker_column
     model: mparticle_looker_blocks
     explore: rawevents
@@ -146,6 +155,7 @@
     listen:
       date: rawevents.event_date
       platform: rawevents.platform
+      is_debug_data: rawevents.is_debug
     type: looker_column
     model: mparticle_looker_blocks
     explore: rawevents
@@ -188,6 +198,7 @@
     listen:
       date: rawevents.event_date
       platform: rawevents.platform
+      is_debug_data: rawevents.is_debug
     type: looker_column
     model: mparticle_looker_blocks
     explore: rawevents
@@ -241,6 +252,7 @@
       event_4: rawevents.event_4
       event_5: rawevents.event_5
       platform: rawevents.platform
+      is_debug_data: rawevents.is_debug
     limit: 500
     column_limit: 50
     show_view_names: true

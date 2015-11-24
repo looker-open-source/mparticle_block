@@ -15,7 +15,8 @@
           isnull(sum(case when messagetypeid = 1 then 1 end), 0) as session_count,
           count(distinct eventdate) as active_day_count,
           isnull(sum(eventltvvalue), 0) as ltv,
-          isnull(sum(case when messagetypeid = 2 then eventlength / 1000 end), 0) as time_spent_in_app
+          isnull(sum(case when messagetypeid = 2 then eventlength / 1000 end), 0) as time_spent_in_app,
+          min(case when messagetypeid = 7 then appversion end) as app_version_at_install
         from app_191.eventsview
         group by 1)
       where install_timestamp is not null
@@ -59,6 +60,9 @@
   - dimension: time_spent_in_app
     type: int
     sql: ${TABLE}.time_spent_in_app
+  
+  - dimension: app_version_at_install
+    sql: ${TABLE}.app_version_at_install
     
   - measure: count
     type: count

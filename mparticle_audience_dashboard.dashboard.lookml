@@ -12,7 +12,7 @@
   
   filters:
     - name: date
-      title: Date
+      title: Event Date
       type: date_filter
       default_value: 30 Days
     
@@ -20,6 +20,11 @@
       type: field_filter
       explore: rawevents
       field: rawevents.platform
+    
+    - name: is_debug_data
+      type: field_filter
+      explore: rawevents
+      field: rawevents.is_debug
       
     - name: audience_membership_filter
       type: field_filter
@@ -39,6 +44,7 @@
         date: rawevents.event_date
         audience_membership_filter: rawevents.audience_membership_filter
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       filters:
         rawevents.is_in_audience: 'Yes'
       sorts: [rawevents.unique_user_count desc]
@@ -78,6 +84,7 @@
         date: rawevents.event_date
         audience_membership_filter: rawevents.audience_membership_filter
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.is_in_audience]
       measures: [rawevents.avg_session_length, rawevents.time_spent_in_app, rawevents.unique_user_count,
         rawevents.arpu, rawevents.session_count]
@@ -141,6 +148,7 @@
         date: rawevents.event_date
         audience_membership_filter: rawevents.audience_membership_filter
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.is_in_audience, rawevents.event_date]
       pivots: [rawevents.is_in_audience]
       measures: [rawevents.arpu]
@@ -177,6 +185,7 @@
         date: rawevents.event_date
         audience_membership_filter: rawevents.audience_membership_filter
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.is_in_audience, rawevents.event_date]
       pivots: [rawevents.is_in_audience]
       measures: [rawevents.session_count, rawevents.unique_user_count]
@@ -217,6 +226,7 @@
         date: rawevents.event_date
         audience_membership_filter: rawevents.audience_membership_filter
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.event_date, rawevents.is_in_audience]
       pivots: [rawevents.is_in_audience]
       measures: [rawevents.avg_session_length]
@@ -253,6 +263,7 @@
         date: rawevents.event_date
         audience_membership_filter: rawevents.audience_membership_filter
         platform: rawevents.platform
+        is_debug_data: rawevents.is_debug
       dimensions: [rawevents.event_date, rawevents.is_in_audience]
       pivots: [rawevents.is_in_audience]
       measures: [rawevents.time_spent_in_app, rawevents.unique_user_count]
