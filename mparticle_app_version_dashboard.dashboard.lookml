@@ -1,5 +1,5 @@
 - dashboard: mparticle_app_version_dashboard
-  title: Mparticle App Version Dashboard
+  title: mParticle App Version Dashboard
   layout: grid
   rows:
     - elements: [Total Sessions by App Version, Daily Sessions by App Version]
