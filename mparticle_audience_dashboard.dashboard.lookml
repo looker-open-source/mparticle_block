@@ -153,6 +153,9 @@
       pivots: [rawevents.is_in_audience]
       measures: [rawevents.arpu]
       sorts: [rawevents.event_date desc, rawevents.is_in_audience desc]
+      series_labels:
+        'Yes': Is in Audience
+        'No': Is not in Audience
       limit: 500
       column_limit: 50
       stacking: ''
@@ -187,6 +190,9 @@
         platform: rawevents.platform
         is_debug_data: rawevents.is_debug
       dimensions: [rawevents.is_in_audience, rawevents.event_date]
+      series_labels:
+        'Yes': Is in Audience
+        'No': Is not in Audience
       pivots: [rawevents.is_in_audience]
       measures: [rawevents.session_count, rawevents.unique_user_count]
       dynamic_fields:
@@ -196,7 +202,7 @@
       sorts: [rawevents.event_date desc, rawevents.is_in_audience desc]
       limit: 500
       column_limit: 50
-      stacking: ''
+      stacking: normal
       show_value_labels: false
       label_density: 25
       legend_position: center
@@ -233,6 +239,9 @@
       sorts: [rawevents.event_date desc, rawevents.is_in_audience desc]
       limit: 500
       column_limit: 50
+      series_labels:
+        'Yes': Is in Audience
+        'No': Is not in Audience
       stacking: ''
       show_value_labels: false
       label_density: 25
@@ -277,6 +286,9 @@
       column_limit: 50
       hidden_fields: [rawevents.time_spent_in_app, rawevents.unique_user_count]
       stacking: ''
+      series_labels:
+        'Yes': Is in Audience
+        'No': Is not in Audience
       show_value_labels: false
       label_density: 25
       legend_position: center
