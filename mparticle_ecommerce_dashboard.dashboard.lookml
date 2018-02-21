@@ -9,53 +9,53 @@
     - elements: [Revenue & ARPU by Day, Purchase Funnel Analytics by App Platform]
       height: 400
   refresh: 1 hour
-  
+
   filters:
     - name: date
       title: Event Date
       type: date_filter
       default_value: 30 Days
-    
+
     - name: platform
       type: field_filter
       explore: rawevents
       field: rawevents.platform
-    
+
     - name: is_debug_data
       type: field_filter
       explore: rawevents
       field: rawevents.is_debug
-      
+
     - name: event_1
       type: field_filter
       explore: rawevents
       field: rawevents.event_name
       default_value: "eCommerce - ViewDetail"
-      
+
     - name: event_2
       type: field_filter
       explore: rawevents
       field: rawevents.event_name
       default_value: "eCommerce - AddToWishlist"
-      
+
     - name: event_3
       type: field_filter
       explore: rawevents
       field: rawevents.event_name
       default_value: "eCommerce - AddToCart"
-      
+
     - name: event_4
       type: field_filter
       explore: rawevents
       field: rawevents.event_name
       default_value: "eCommerce - Checkout"
-      
+
     - name: event_5
       type: field_filter
       explore: rawevents
       field: rawevents.event_name
       default_value: "eCommerce - Purchase"
-      
+
   elements:
 
   - name: total_revenue
@@ -73,7 +73,7 @@
     font_size: small
     height: 2
     width: 4
-  
+
   - name: unique_user_count
     title: Unique User Count
     type: single_value
@@ -89,7 +89,7 @@
     font_size: small
     height: 2
     width: 4
-  
+
   - name: arpu
     title: ARPU
     type: single_value
@@ -106,7 +106,7 @@
     height: 2
     width: 4
 
-  
+
   - name: Revenue by Attribution Source
     title: Revenue by Attribution Source
     listen:
@@ -149,7 +149,7 @@
       rawevents.arpu: ARPU
       rawevents.revenue: Total Revenue
     y_axis_orientation: [left, right]
-  
+
   - name: Revenue by Hour of Day
     title: Revenue by Hour of Day
     listen:
@@ -235,7 +235,7 @@
       rawevents.arpu: ARPU
       rawevents.revenue: Total Revenue
     y_axis_orientation: [left, right]
-    
+
   - name: Purchase Funnel Analytics by App Platform
     title: Purchase Funnel Analytics by App Platform
     type: looker_column
@@ -283,4 +283,3 @@
       funnel.event_3_uu_count: Event 3
       funnel.event_4_uu_count: Event 4
       funnel.event_5_uu_count: Event 5
-      

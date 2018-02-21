@@ -9,29 +9,29 @@
     - elements: [daily_avg_session_length, daily_time_spent_in_app]
       height: 400
   refresh: 6 hours
-  
+
   filters:
     - name: date
       title: Event Date
       type: date_filter
       default_value: 30 Days
-    
+
     - name: platform
       type: field_filter
       explore: rawevents
       field: rawevents.platform
-    
+
     - name: is_debug_data
       type: field_filter
       explore: rawevents
       field: rawevents.is_debug
-      
+
     - name: audience_membership_filter
       type: field_filter
       explore: rawevents
       field: rawevents.audience_membership
       default_value: '%"1234"%' ## when using this dashboard, users need to change the value to relevant audience ID for audience analytics
-  
+
   elements:
     - name: audience_size_by_day
       title: Audience Size by Day
@@ -138,7 +138,7 @@
       y_axis_value_format: '#,##0.0%'
       y_axis_labels: [Lift %]
       hidden_points_if_no: [rawevents.is_in_audience]
-    
+
     - name: daily_arpu_by_audience
       title: Daily ARPU by Audience Membership
       type: looker_area
@@ -178,7 +178,7 @@
       interpolation: linear
       x_axis_label: Date
       y_axis_labels: ARPU
-      
+
     - name: daily_sessions_per_user
       title: Daily Sessions Per User by Audience Membership
       type: looker_area
@@ -308,4 +308,3 @@
       interpolation: linear
       x_axis_label: Date
 
-    

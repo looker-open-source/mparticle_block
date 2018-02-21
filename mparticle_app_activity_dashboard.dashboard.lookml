@@ -17,48 +17,48 @@
     - elements: [Funnel Analytics by App Platform, user_retention]
       height: 400
   refresh: 1 hour
-  
+
   filters:
     - name: date
       title: Event Date
       type: date_filter
       default_value: 30 Days
-    
+
     - name: install_date
       title: Install Date
       type: date_filter
       default_value: 30 Days
-      
+
     - name: platform
       type: field_filter
       explore: rawevents
       field: rawevents.platform
-    
+
     - name: is_debug_data
       type: field_filter
       explore: rawevents
       field: rawevents.is_debug
-      
+
     - name: event_1
       type: field_filter
       explore: rawevents
       field: rawevents.event_name
-      
+
     - name: event_2
       type: field_filter
       explore: rawevents
       field: rawevents.event_name
-      
+
     - name: event_3
       type: field_filter
       explore: rawevents
       field: rawevents.event_name
-      
+
     - name: event_4
       type: field_filter
       explore: rawevents
       field: rawevents.event_name
-      
+
   elements:
     - name: session_count
       title: Session Count
@@ -75,7 +75,7 @@
       font_size: small
       height: 2
       width: 4
-    
+
     - name: average_session_length
       title: Average Session Length (Seconds)
       type: single_value
@@ -91,7 +91,7 @@
       font_size: small
       height: 2
       width: 4
-    
+
     - name: total_installs
       title: Total Installs
       type: single_value
@@ -107,7 +107,7 @@
       font_size: small
       height: 2
       width: 4
-  
+
     - name: uu by App Platform
       title: Active Users by App Platform
       type: looker_column
@@ -148,7 +148,7 @@
       show_view_names: true
       y_axis_labels: [Monthly Active Users]
       x_axis_label: App
-    
+
     - name: session_cnt_breakdown
       title: Session Count Breakdown by OS Version
       type: looker_column
@@ -193,7 +193,7 @@
       y_axis_labels: ['% of Sessions']
       y_axis_value_format: 0.0%
       x_axis_label: OS Version
-  
+
     - name: Dau by app Platform
       title: DAU by App Platform
       type: looker_area
@@ -271,7 +271,7 @@
       show_null_points: true
       y_axis_labels: [Avg Session Length (in sec)]
       x_axis_label: Date
-    
+
     - name: daily_time_spent_in_app
       title: Daily Time Spent In App Per User by App
       type: looker_line
@@ -509,7 +509,7 @@
       ordering: none
       show_null_labels: false
       show_row_numbers: true
-    
+
     - name: Funnel Analytics by App Platform
       title: Funnel Analytics by App Platform
       type: looker_column
@@ -555,7 +555,7 @@
         funnel.event_2_uu_count: Event 2
         funnel.event_3_uu_count: Event 3
         funnel.event_4_uu_count: Event 4
-        
+
     - name: user_retention
       title: User Retention by Attribution Source
       type: looker_line
@@ -609,4 +609,3 @@
       y_axis_labels: [User Retention Percent %]
       y_axis_value_format: 0%
       x_axis_label: Weeks since install
-    

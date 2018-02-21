@@ -9,29 +9,29 @@
     - elements: [user_retention]
       height: 400
   refresh: 1 hour
-  
+
   filters:
     - name: date
       title: Event Date
       type: date_filter
       default_value: 30 Days
-    
+
     - name: install_date
       title: Install Date
       type: date_filter
       default_value: 30 Days
-      
+
     - name: platform
       type: field_filter
       explore: rawevents
       field: rawevents.platform
       default_value: Android
-      
+
     - name: is_debug_data
       type: field_filter
       explore: rawevents
       field: rawevents.is_debug
-      
+
   elements:
 
     - name: Total Sessions by App Version
@@ -66,7 +66,7 @@
       show_null_labels: false
       x_axis_label: App Version
       y_axis_labels: [Session Count]
-      
+
     - name: Daily Sessions by App Version
       title: Daily Sessions by App Version
       type: looker_line
@@ -138,7 +138,7 @@
       interpolation: linear
       y_axis_labels: [Avg Session Length (in sec)]
       x_axis_label: Date
-    
+
     - name: Daily ARPU by App Version
       title: Daily ARPU by App Version
       type: looker_line
@@ -174,7 +174,7 @@
       interpolation: linear
       y_axis_labels: [ARPU]
       x_axis_label: Date
-    
+
     - name: user_retention
       title: User Retention by App Version at Install
       type: looker_line
